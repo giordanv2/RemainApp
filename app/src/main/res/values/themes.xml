@@ -1,0 +1,15 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.Remain" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your dark theme here. -->
+        <item name="colorPrimary">@color/my_dark_primary</item>
+        <item name="colorPrimaryDark">@color/my_dark_primary_dark</item>
+        <item name="colorAccent">@color/my_dark_accent</item>
+        <item name="android:textColor">@color/my_dark_text</item>
+        <item name="android:textColorSecondary">@color/my_dark_secondary_text</item>
+        <item name="android:windowBackground">@color/my_dark_background</item>
+        <item name="android:divider">@color/my_dark_divider</item>
+    </style>
+
+    <style name="Theme.Remain" parent="Base.Theme.Remain" />
+</resources>
