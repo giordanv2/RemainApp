@@ -103,10 +103,10 @@ public class MainActivity extends AppCompatActivity {
         mockList.add(new Reminder("Fix computer", "Install latest updates", "17 Nov", "6:00 PM"));
         mockList.add(new Reminder("Trip to California", "Pack luggage for the trip", "18 Nov", "7:15 PM"));
         mockList.add(new Reminder("Dentist Appointment", "Annual dental check-up", "19 Nov", "10:00 AM"));
-//        mockList.add(new Reminder("Gym Session", "Leg day workout", "20 Nov", "8:00 AM"));
-//        mockList.add(new Reminder("Read Book", "Finish reading 'The Alchemist'", "21 Nov", "9:00 PM"));
-//        mockList.add(new Reminder("Family Dinner", "Dinner at Grandma's house", "22 Nov", "7:00 PM"));
-//        mockList.add(new Reminder("Coffee with Sam", "Meet at Central Perk", "23 Nov", "3:30 PM"));
+        mockList.add(new Reminder("Gym Session", "Leg day workout", "20 Nov", "8:00 AM"));
+        mockList.add(new Reminder("Read Book", "Finish reading 'The Alchemist'", "21 Nov", "9:00 PM"));
+        mockList.add(new Reminder("Family Dinner", "Dinner at Grandma's house", "22 Nov", "7:00 PM"));
+        mockList.add(new Reminder("Coffee with Sam", "Meet at Central Perk", "23 Nov", "3:30 PM"));
 
         return mockList;
     }

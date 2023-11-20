@@ -6,7 +6,7 @@
         <item name="colorPrimary">@color/white</item>
     </style>
 
-    <style name="CalenderViewDateCustomText" parent="android:TextAppearance.DeviceDefault.Small">
+    <style name="CalenderViewDateCustomText" parent="android:TextAppearance.DeviceDefault.Large">
         <item name="android:textColor">@color/white</item>
         <item name="android:weekNumberColor">@color/my_dark_accent</item>
     </style>
