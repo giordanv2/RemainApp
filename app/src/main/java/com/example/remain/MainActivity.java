@@ -1,15 +1,16 @@
 package com.example.remain;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.app.Dialog;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.View;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.EditText;
+import android.widget.ScrollView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -21,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
 
     private List<Reminder> reminderList = new ArrayList<>();
     private ReminderAdapter reminderAdapter;
-    private String selectedDate; // Variable to store the selected date
+    private String selectedDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
         reminderAdapter = new ReminderAdapter(reminderList);
         recyclerViewReminders.setLayoutManager(new LinearLayoutManager(this));
         recyclerViewReminders.setAdapter(reminderAdapter);
+
+        ScrollView scrollView = findViewById(R.id.ScrollView1);
 
         CalendarView calendarView = findViewById(R.id.calendarView);
         calendarView.setOnDateChangeListener((view, year, month, dayOfMonth) -> {
@@ -48,6 +51,18 @@ public class MainActivity extends AppCompatActivity {
 
         reminderAdapter.notifyDataSetChanged();
         reminderAdapter.notifyItemInserted(reminderList.size() - 1);
+
+        scrollView.setOnScrollChangeListener((v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
+
+            int scrollViewHeight = scrollView.getChildAt(0).getHeight() - scrollView.getHeight();
+
+            float scrollPercentage = (float) scrollY / scrollViewHeight;
+
+            float minAlpha = 0.6f;
+            btnNewReminder.setAlpha(Math.max(minAlpha, 1 - scrollPercentage));
+
+            btnNewReminder.setVisibility(View.VISIBLE);
+        });
     }
 
     private String getMonthString(int month) {
@@ -71,10 +86,9 @@ public class MainActivity extends AppCompatActivity {
             int hour = timePicker.getCurrentHour();
             int minute = timePicker.getCurrentMinute();
 
-            // Format time for 12-hour format with AM/PM
             String amPm = hour >= 12 ? "PM" : "AM";
             hour = hour % 12;
-            if (hour == 0) hour = 12; // Handle midnight and noon
+            if (hour == 0) hour = 12;
             String time = String.format("%d:%02d %s", hour, minute, amPm);
 
             if (selectedDate == null) {
@@ -82,6 +96,12 @@ public class MainActivity extends AppCompatActivity {
                 int month = today.get(Calendar.MONTH);
                 int day = today.get(Calendar.DAY_OF_MONTH);
                 selectedDate = day + " " + getMonthString(month);
+            }
+
+            if (title.isEmpty() || description.isEmpty()) {
+                Toast toast = Toast.makeText(getApplicationContext(), "Title and Description must be completed", Toast.LENGTH_SHORT);
+                toast.show();
+                return;
             }
 
             Reminder newReminder = new Reminder(title, description, selectedDate, time);
@@ -96,6 +116,13 @@ public class MainActivity extends AppCompatActivity {
 
         dialog.show();
     }
+
+    private boolean isScrollViewAtBottom(ScrollView scrollView) {
+        View view = (View) scrollView.getChildAt(scrollView.getChildCount() - 1);
+        int diff = (view.getBottom() - (scrollView.getHeight() + scrollView.getScrollY()));
+        return diff <= 0;
+    }
+
 
     private List<Reminder> mockReminders() {
         List<Reminder> mockList = new ArrayList<>();
